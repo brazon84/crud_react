@@ -1,0 +1,10 @@
+input{
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+width: 100%;
+}
+label{
+    font-weight: 500;
+    font-size: 18px;
+}

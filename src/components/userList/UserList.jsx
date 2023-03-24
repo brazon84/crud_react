@@ -35,7 +35,7 @@ const UserList = ({user, deleteUser, editUser}) => {
 
   return (
     <div>
-    <section className='d-flex gap-3 justify-content-center align-items-center flex-wrap align-content-center'>
+    <section className='d-flex gap-3 flex-wrap '>
         {currentItems.map((user)=>
         <UserCard key={user.id} user={user} deleteUser={deleteUser} editUser={editUser}/>)}
     </section>

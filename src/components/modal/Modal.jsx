@@ -1,11 +1,40 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import { useForm } from "react-hook-form";
-import './modal.css'
+import "./modal.css";
 
-const ModalUser = ({ show, handleClose, createUser }) => {
-  const { register, handleSubmit } = useForm();
+const ModalUser = ({ show, handleClose, createUser, editUser, user }) => {
+  const { register, handleSubmit, reset, setValue } = useForm({
+    defaultValues: {
+      first_name: user?.first_name || "",
+      last_name: user?.last_name || "",
+      email: user?.email || "",
+      password: user?.password || "",
+      birthday: user?.birthday || "",
+    },
+  });
+
+  useEffect(() => {
+    // Utiliza setValue para establecer los valores de los campos del formulario
+    setValue("first_name", user?.first_name || "");
+    setValue("last_name", user?.last_name || "");
+    setValue("email", user?.email || "");
+    setValue("password", user?.password || "");
+    setValue("birthday", user?.birthday || "");
+  }, [user, setValue]);
+
+  const onSubmit = async (data) => {
+  
+    if (editUser) {
+      editUser(user, data);
+    } else {
+     await createUser(data);
+    }
+    reset(); // resetear el formulario
+    handleClose()
+  };
+
   return (
     <>
       <Modal
@@ -39,7 +68,11 @@ const ModalUser = ({ show, handleClose, createUser }) => {
             <label htmlFor="passwordId" className="font-semibold">
               Password:{" "}
             </label>
-            <input type="password" id="passwordId" {...register("password")} />
+            <input
+              type="password"
+              id="passwordId"
+              {...register("password")}
+            />
           </div>
           <div>
             <label htmlFor="birthday" className="font-semibold">
@@ -49,12 +82,18 @@ const ModalUser = ({ show, handleClose, createUser }) => {
           </div>
         </Modal.Body>
         <Modal.Footer>
-          <Button
-            variant="primary"
-            onClick={handleSubmit((data) => createUser(data))}
-          >
-        <i class="fa-regular fa-circle-check"></i>
-          </Button>
+          {editUser ? (
+            <Button
+              variant="primary"
+              onClick={handleSubmit(onSubmit)}
+            >
+              Update
+            </Button>
+          ) : (
+            <Button variant="primary" onClick={handleSubmit(onSubmit)}>
+              Create
+            </Button>
+          )}
         </Modal.Footer>
       </Modal>
     </>

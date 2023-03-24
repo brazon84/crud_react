@@ -3,6 +3,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import axios from "axios";
 import UserList from "./components/userList/UserList";
 import Navbar from "./components/navbar/Navbar";
+import './App.css'
 
 
 
@@ -12,6 +13,7 @@ function App() {
   const baseUrl = "https://users-crud.academlo.tech/";
   const [user, setUser] = useState([]);
   const [loadUsers, setLoadUsers] = useState(false);
+  const [editUserId, setEditUserId] = useState(null);
   
  
 //se realiza la peticion a la api mediante axios
@@ -29,7 +31,7 @@ function App() {
   const createUser = async (newUsers) => {
     try {
       const res = await axios.post(baseUrl + "users/", newUsers)
-      console.log(res.data)
+      loadUser()
     } catch (error) {
       
       console.log(error)
@@ -39,16 +41,18 @@ function App() {
   const deleteUser = async (userId) => {
     try {
       await axios.delete(baseUrl + `users/${userId}/`);
-      alert('elemento eliminado')
+      alert('Elemento eliminado');
+      const updatedUsers = user.filter((u) => u.id !== userId);
+      setUser(updatedUsers);
     } catch (error) {
       console.log(error);
     }
   };
-
-  const editUser = async (userId, updatedUser) => {
+  const editUser = async (Id, updatedUser) => {
     try {
-      await axios.put(baseUrl + `users/${userId}/`, updatedUser);
-      alert('elemento editado')
+      await axios.put(baseUrl + `users/${Id}/`, updatedUser);
+      setEditUserId(Id);
+      loadUser()
     } catch (error) {
       console.error(error);
     }

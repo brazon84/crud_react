@@ -3,7 +3,7 @@ import Modal from '../modal/Modal'
 
 const Navbar = ({createUser}) => {
 
-  const [show, setShow] = useState(true);
+  const [show, setShow] = useState(false);
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
@@ -16,8 +16,8 @@ const Navbar = ({createUser}) => {
 
       <h1 className="text-3xl font-bold">Users Admin</h1>
 
-      <button className="border border-0" onClick={handleShow}>
-      <i class="fa-solid fa-plus"></i>
+      <button className="border border-0 fs-1 fw-bold bg-primary text-white p-2" onClick={handleShow}>
+      <i className="fa-solid fa-plus"></i>
       </button>
 
     </nav>

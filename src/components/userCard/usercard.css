@@ -1,5 +1,10 @@
+div.card{
+    bottom:0 ;
+}
 .card{
     background-color: lightblue;
+    width: 280px;
+    height: 200px;
 }
 h2{
     display: flex;
@@ -17,4 +22,5 @@ button{
     display: flex;
     justify-content: center;
     align-items: center;
+   
 }

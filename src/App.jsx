@@ -6,7 +6,7 @@ import Navbar from "./components/navbar/Navbar";
 import "./App.css";
 
 function App() {
-  const baseUrl = "http://localhost:8080/";
+  const baseUrl = "https://crud-db-qm3r.onrender.com/";
   const [user, setUser] = useState([]);
   const [loadUsers, setLoadUsers] = useState(false);
   const [editUserId, setEditUserId] = useState(null);

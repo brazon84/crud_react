@@ -9,7 +9,7 @@ function App() {
   const baseUrl = "https://crud-db-qm3r.onrender.com/";
   const [user, setUser] = useState([]);
   const [loadUsers, setLoadUsers] = useState(false);
-  const [editUserId, setEditUserId] = useState(null);
+  const [editUserId, setEditUserId] = useState(false);
 
   //se realiza la peticion a la api mediante axios
   const getUser = async () => {
@@ -32,6 +32,7 @@ function App() {
 
   const deleteUser = async (id) => {
     try {
+      
       await axios.delete(baseUrl + `users/${id}`);
       alert("Elemento eliminado");
       const updatedUsers = user.filter((u) => u.id !== id);
@@ -42,8 +43,8 @@ function App() {
   };
   const editUser = async (id, updatedUser) => {
     try {
-      await axios.put(baseUrl + `users/${id}`, updatedUser);
-      setEditUserId(null);
+      await axios.put(baseUrl + `users/${id.id}`,updatedUser);
+      setEditUserId();
       loadUser();
     } catch (error) {
       console.error(error);
